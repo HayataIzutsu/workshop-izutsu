@@ -1,0 +1,31 @@
+name: Test
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  pomodoro:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: pomodoro
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: pomodoro/go.mod
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Run backend tests
+        run: go test ./...
+
+      - name: Run frontend tests
+        run: node --test static/js/*.test.js
