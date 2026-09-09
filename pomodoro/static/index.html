@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pomodoro Gamification</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <h1>ポモドーロタイマー</h1>
+
+      <section class="timer">
+        <p id="timerDisplay">25:00</p>
+        <div class="actions">
+          <button id="startTimerButton">開始</button>
+          <button id="completeSessionButton">セッション完了</button>
+        </div>
+      </section>
+
+      <section class="profile">
+        <h2>プロフィール</h2>
+        <p>レベル: <strong id="levelValue">1</strong></p>
+        <p>XP: <strong id="xpValue">0</strong></p>
+        <p>連続日数: <strong id="streakValue">0</strong> 日</p>
+        <p id="levelUpMessage" class="level-up hidden"></p>
+      </section>
+
+      <section>
+        <h2>バッジ</h2>
+        <ul id="badgeList"></ul>
+      </section>
+
+      <section>
+        <h2>週間統計</h2>
+        <div id="weeklyStats"></div>
+      </section>
+
+      <section>
+        <h2>月間統計</h2>
+        <div id="monthlyStats"></div>
+      </section>
+    </main>
+
+    <script src="/js/gamification.js"></script>
+    <script src="/js/app.js"></script>
+  </body>
+</html>
