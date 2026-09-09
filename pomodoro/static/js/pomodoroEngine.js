@@ -8,7 +8,14 @@ const DEFAULT_TIMER_SETTINGS = Object.freeze({
 
 class PomodoroEngine {
   constructor(settings = {}) {
-    this.settings = { ...DEFAULT_TIMER_SETTINGS, ...settings };
+    this.settings = {
+      ...DEFAULT_TIMER_SETTINGS,
+      ...settings,
+      workDurationSec: normalizePositiveInteger(settings.workDurationSec, DEFAULT_TIMER_SETTINGS.workDurationSec),
+      shortBreakDurationSec: normalizePositiveInteger(settings.shortBreakDurationSec, DEFAULT_TIMER_SETTINGS.shortBreakDurationSec),
+      longBreakDurationSec: normalizePositiveInteger(settings.longBreakDurationSec, DEFAULT_TIMER_SETTINGS.longBreakDurationSec),
+      longBreakInterval: normalizePositiveInteger(settings.longBreakInterval, DEFAULT_TIMER_SETTINGS.longBreakInterval),
+    };
     this.completedWorkSessions = 0;
     this.status = "idle";
     this.mode = "work";
@@ -100,4 +107,10 @@ class PomodoroEngine {
 if (typeof globalThis !== "undefined") globalThis.PomodoroEngine = PomodoroEngine;
 if (typeof module !== "undefined" && module.exports) {
   module.exports = { PomodoroEngine, DEFAULT_TIMER_SETTINGS };
+}
+
+function normalizePositiveInteger(value, fallback) {
+  const parsed = Number(value);
+  if (!Number.isFinite(parsed)) return fallback;
+  return Math.max(1, Math.floor(parsed));
 }

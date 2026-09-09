@@ -32,7 +32,11 @@ func (handler SessionHandler) ServeHTTP(writer http.ResponseWriter, request *htt
 		return
 	}
 	if session.ID == "" {
-		session.ID = session.CompletedAt.UTC().Format("20060102T150405.000000000Z07:00") + "-" + time.Now().Format("150405.000000000")
+		now := time.Now()
+		if handler.Clock != nil {
+			now = handler.Clock.Now()
+		}
+		session.ID = session.CompletedAt.UTC().Format("20060102T150405.000000000Z07:00") + "-" + now.Format("150405.000000000")
 	}
 	if err := handler.Store.Add(session); err != nil {
 		writeError(writer, http.StatusInternalServerError, "could not store session")

@@ -52,7 +52,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	handler, err := newHandlerWithStore(store)
+	srvHandler, err := newHandlerWithStore(store)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -63,5 +63,5 @@ func main() {
 	}
 	address := ":" + port
 	log.Printf("listening on http://localhost:%s", port)
-	log.Fatal(http.ListenAndServe(address, handler))
+	log.Fatal(http.ListenAndServe(address, srvHandler))
 }

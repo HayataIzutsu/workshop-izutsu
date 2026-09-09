@@ -63,3 +63,10 @@ test("autoStart keeps the engine running after a session", () => {
   engine.tick(10);
   assert.equal(engine.state().status, "running");
 });
+
+test("invalid duration settings are normalized to positive integers", () => {
+  const engine = createEngine({ workDurationSec: 0, shortBreakDurationSec: -3, longBreakDurationSec: NaN, longBreakInterval: 0 });
+  engine.start();
+  engine.tick(3);
+  assert.ok(engine.state().remainingSec >= 1);
+});

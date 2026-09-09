@@ -17,7 +17,7 @@ func TestHistoryHandlerFiltersAndSortsSessions(t *testing.T) {
 	_ = store.Add(domain.Session{ID: "old", Type: domain.WorkSession, DurationSec: 1500, CompletedAt: time.Date(2026, 9, 8, 9, 0, 0, 0, time.UTC), Task: "読書"})
 	_ = store.Add(domain.Session{ID: "new", Type: domain.WorkSession, DurationSec: 1500, CompletedAt: time.Date(2026, 9, 8, 10, 0, 0, 0, time.UTC), Task: "実装"})
 	recorder := httptest.NewRecorder()
-	request := httptest.NewRequest(http.MethodGet, "/api/sessions?task=実装", nil)
+	request := httptest.NewRequest(http.MethodGet, "/api/history?task=実装", nil)
 
 	(HistoryHandler{Store: store}).ServeHTTP(recorder, request)
 
