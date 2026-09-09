@@ -31,7 +31,11 @@ func (handler StatsHistoryHandler) ServeHTTP(writer http.ResponseWriter, request
 		writeError(writer, http.StatusInternalServerError, "could not load sessions")
 		return
 	}
-	now := handler.Clock.Now().In(handler.Location)
+	location := handler.Location
+	if location == nil {
+		location = time.UTC
+	}
+	now := handler.Clock.Now().In(location)
 	type dailyStats struct {
 		Date string `json:"date"`
 		domain.Stats
@@ -39,7 +43,7 @@ func (handler StatsHistoryHandler) ServeHTTP(writer http.ResponseWriter, request
 	history := make([]dailyStats, 0, days)
 	for offset := 0; offset < days; offset++ {
 		day := now.AddDate(0, 0, -offset)
-		history = append(history, dailyStats{Date: day.Format("2006-01-02"), Stats: domain.StatsForDay(sessions, day, handler.Location)})
+		history = append(history, dailyStats{Date: day.Format("2006-01-02"), Stats: domain.StatsForDay(sessions, day, location)})
 	}
 	sort.Slice(history, func(left, right int) bool { return history[left].Date < history[right].Date })
 	writeJSON(writer, http.StatusOK, history)
