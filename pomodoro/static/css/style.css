@@ -1,0 +1,50 @@
+body {
+  margin: 0;
+  font-family: sans-serif;
+  background: #f8f8f8;
+  color: #222;
+}
+
+.app {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.settings,
+.sound {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.timer {
+  text-align: center;
+  margin: 24px 0;
+}
+
+#timeDisplay {
+  font-size: 48px;
+  margin: 8px 0 16px;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+button {
+  padding: 8px 14px;
+}
+
+.theme-dark {
+  background: #181a1b;
+  color: #f2f2f2;
+}
+
+.theme-focus .settings,
+.theme-focus .sound,
+.theme-focus .stats {
+  display: none;
+}
